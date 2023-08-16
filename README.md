@@ -2,6 +2,12 @@
 
 This repo is just to learn the basics of GO lang with testing and to build web api
 
+## Run tests
+
+```go
+go test -v
+```
+
 ## Create/Init Module
 
 ```shell
