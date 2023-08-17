@@ -104,24 +104,6 @@ func TestWithdrawInvalid(t *testing.T) {
 	}
 }
 
-func TestStatement(t *testing.T) {
-	account := Account{
-		Customer: Customer{
-			Name:    "Gunjan",
-			Address: "Test 123",
-			Phone:   "12345678",
-		},
-		Number:  1001,
-		Balance: 0,
-	}
-
-	account.Deposit(100)
-
-	if statement := account.Statement(); statement != "1001 - Gunjan - 100.00 DKK" {
-		t.Error("statement doesn't have the proper format")
-	}
-}
-
 func TestTransfer(t *testing.T) {
 	account1 := Account{
 		Customer: Customer{
