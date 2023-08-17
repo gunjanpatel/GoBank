@@ -2,6 +2,7 @@ package bank
 
 import (
 	"errors"
+	"fmt"
 )
 
 type Customer struct {
@@ -51,10 +52,7 @@ func (fromAccount *Account) Transfer(amount float64, toAccount *Account) error {
 	return nil
 }
 
-type Bank interface {
-	Statement() string
-}
-
-func Statement(b Bank) string {
-	return b.Statement()
+// Default Statement method
+func (a Account) Statement() string {
+	return fmt.Sprintf("%v - %v - %.2f DKK", a.Number, a.Name, a.Balance)
 }
