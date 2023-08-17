@@ -39,6 +39,19 @@ func (a *Account) Withdraw(amount float64) error {
 	return nil
 }
 
+func (fromAccount *Account) Transfer(amount float64, toAccount *Account) error {
+
+	if err := fromAccount.Withdraw(amount); err != nil {
+		return err
+	}
+
+	if err := toAccount.Deposit(amount); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (a Account) Statement() string {
 	return fmt.Sprintf("%v - %v - %.2f DKK", a.Number, a.Name, a.Balance)
 }

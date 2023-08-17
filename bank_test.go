@@ -121,3 +121,69 @@ func TestStatement(t *testing.T) {
 		t.Error("statement doesn't have the proper format")
 	}
 }
+
+func TestTransfer(t *testing.T) {
+	account1 := Account{
+		Customer: Customer{
+			Name:    "Gunjan",
+			Address: "Test 123",
+			Phone:   "12345678",
+		},
+		Number:  1001,
+		Balance: 0,
+	}
+
+	account2 := Account{
+		Customer: Customer{
+			Name:    "Prital",
+			Address: "Test 123",
+			Phone:   "12345678",
+		},
+		Number:  1002,
+		Balance: 0,
+	}
+
+	account1.Deposit(1000)
+
+	account1.Transfer(100, &account2)
+
+	if account2.Balance != 100 && account1.Balance != 900 {
+		t.Error("money is not transferred and not credited to another account")
+	}
+}
+
+func TestTransferInvalid(t *testing.T) {
+	account1 := Account{
+		Customer: Customer{
+			Name:    "Gunjan",
+			Address: "Test 123",
+			Phone:   "12345678",
+		},
+		Number:  1001,
+		Balance: 0,
+	}
+
+	account2 := Account{
+		Customer: Customer{
+			Name:    "Prital",
+			Address: "Test 123",
+			Phone:   "12345678",
+		},
+		Number:  1002,
+		Balance: 0,
+	}
+
+	account1.Deposit(1000)
+
+	if err := account1.Transfer(0, &account2); err == nil {
+		t.Error("should not be allowed to transfer 0 amount")
+	}
+
+	if err := account1.Transfer(-100, &account2); err == nil {
+		t.Error("should not be allowed to transfer negative amount")
+	}
+
+	if err := account1.Transfer(1001, &account2); err == nil {
+		t.Error("should not be allowed to transfer more than account has")
+	}
+}
